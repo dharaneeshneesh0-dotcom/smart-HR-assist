@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AI-powered tool for generating fair and unbiased employee performance reviews.">
+    <title>Smart HR Assist | AI Review Generator</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="blob-1"></div>
+    <div class="blob-2"></div>
+    
+    <div class="container">
+        <header>
+            <div class="logo">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2L2 7l10 5 10-5-10-5z" fill="url(#grad1)"/>
+                    <path d="M2 17l10 5 10-5M2 12l10 5 10-5" stroke="url(#grad1)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <defs>
+                        <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#4F46E5" />
+                            <stop offset="100%" stop-color="#EC4899" />
+                        </linearGradient>
+                    </defs>
+                </svg>
+                <h1>Smart HR Assist</h1>
+            </div>
+            <p>Generate unbiased, AI-driven performance evaluations</p>
+        </header>
+
+        <main class="grid-layout">
+            <!-- Left Side: Input Form -->
+            <section class="glass-card form-section">
+                <div class="api-key-container form-group">
+                    <label for="api_key">Gemini API Key</label>
+                    <input type="password" id="api_key" placeholder="Paste your Gemini API key here..." required autocomplete="off" />
+                </div>
+                <h2>Employee Details</h2>
+                <form id="evaluationForm">
+                    <div class="form-group">
+                        <label for="name">Employee Name</label>
+                        <input type="text" id="name" placeholder="e.g. Jane Smith" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="role">Role / Job Title</label>
+                        <input type="text" id="role" placeholder="e.g. Senior Product Manager" required />
+                    </div>
+
+                    <div class="rating-grid">
+                        <div class="form-group">
+                            <label for="manager_rating">Manager Rating (1-5)</label>
+                            <input type="number" id="manager_rating" min="1" max="5" placeholder="5" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="peer_rating">Peer Rating (1-5)</label>
+                            <input type="number" id="peer_rating" min="1" max="5" placeholder="4" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="self_rating">Self Rating (1-5)</label>
+                            <input type="number" id="self_rating" min="1" max="5" placeholder="3" required />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="comments">Aggregate Comments</label>
+                        <textarea id="comments" rows="5" placeholder="Provide raw manager, peer, and self-evaluation comments here..." required></textarea>
+                    </div>
+
+                    <div style="display: flex; gap: 1rem;">
+                        <button type="button" id="demoBtn" style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 1rem; border-radius: 8px; cursor: pointer; transition: background 0.2s; font-family: inherit; font-size: 1rem;">Load Sample Data</button>
+                        <button type="submit" class="submit-btn" id="generateBtn" style="flex: 1;">
+                            <span>Generate Evaluation</span>
+                            <div class="loader hidden" id="btnLoader"></div>
+                        </button>
+                    </div>
+                </form>
+            </section>
+
+            <!-- Right Side: AI Output -->
+            <section class="glass-card result-section">
+                <h2>Generated Review</h2>
+                
+                <div id="emptyState" class="empty-state">
+                    <div class="empty-icon">✨</div>
+                    <p>Fill out the employee details to generate an unbiased performance review.</p>
+                </div>
+
+                <div id="loadingState" class="loading-state hidden">
+                    <div class="spinner"></div>
+                    <p>AI is analyzing the feedback...</p>
+                    <div class="skeleton-loader">
+                        <div class="skeleton-line title"></div>
+                        <div class="skeleton-line"></div>
+                        <div class="skeleton-line"></div>
+                        <div class="skeleton-line short"></div>
+                    </div>
+                </div>
+
+                <div id="resultContent" class="result-content hidden">
+                    <div class="review-block">
+                        <h3>Overall Performance Summary</h3>
+                        <p id="out-summary"></p>
+                    </div>
+                    
+                    <div class="review-block strengths-block">
+                        <h3>Key Strengths</h3>
+                        <ul id="out-strengths"></ul>
+                    </div>
+                    
+                    <div class="review-block areas-block">
+                        <h3>Areas of Improvement</h3>
+                        <ul id="out-areas"></ul>
+                    </div>
+                    
+
+                    
+                    <div class="review-block goals-block">
+                        <h3>Future Goals</h3>
+                        <ul id="out-goals"></ul>
+                    </div>
+
+                    <button class="export-btn" id="copyBtn">Copy to Clipboard</button>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
